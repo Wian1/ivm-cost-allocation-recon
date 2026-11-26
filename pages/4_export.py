@@ -45,8 +45,7 @@ if not os.path.exists(pq_p) and st.button('Create Parquet version now'):
     with st.spinner('Writing Parquet...'):
         exporters.write_parquet(res.transform.t4, pq_p)
     st.rerun()
-st.caption('These files are big, so they are saved to the run folder rather than pushed through the browser. '
-           'Tick below only if you really want a browser download.')
-if st.checkbox('Prepare browser download of the large file(s) (loads them into memory)'):
-    dl('Transformed TABLE 4 (CSV)', 'table4_csv', 'text/csv')
+st.caption('The transformed CSV is large, so the download can take a while to start.')
+dl('Transformed TABLE 4 (CSV)', 'table4_csv', 'text/csv')
+if os.path.exists(pq_p) and st.checkbox('Also prepare the Parquet download (loads it into memory)'):
     dl('Transformed TABLE 4 (Parquet)', 'table4_parquet', 'application/octet-stream')
