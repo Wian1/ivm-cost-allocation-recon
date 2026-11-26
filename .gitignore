@@ -1,0 +1,10 @@
+runs/
+uploads/
+golden/
+inputs/
+app_settings.json
+__pycache__/
+.pytest_cache/
+*.pyc
+.venv/
+references/*.csv
