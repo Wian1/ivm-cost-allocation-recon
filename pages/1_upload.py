@@ -11,8 +11,16 @@ st.title('1. Upload & check the input files')
 st.write('Load the **invoice table (TABLE 1)** and the **bag table (TABLE 4)**. The app checks the column '
          'names straight away and shows a quick profile before anything is calculated.')
 
-src = st.radio('Where are the files?', ['Pick from a folder on this computer (best for the large bag file)',
-                                       'Upload through the browser'], index=0)
+# On Streamlit Community Cloud the app runs on a remote server, so it cannot see folders on the
+# user's own computer. Only offer the folder option when running locally.
+ON_CLOUD = os.path.isdir('/mount/src')
+if ON_CLOUD:
+    src = 'Upload through the browser'
+    st.info('This app is running in the cloud, so it cannot read folders on your computer. '
+            'Upload the two CSV files below. For the full ~250 MB bag file, uploading can take a few minutes.')
+else:
+    src = st.radio('Where are the files?', ['Pick from a folder on this computer (best for the large bag file)',
+                                           'Upload through the browser'], index=0)
 t1_path = t4_path = None
 
 if src.startswith('Pick'):
